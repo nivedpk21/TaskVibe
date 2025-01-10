@@ -16,7 +16,7 @@ export default function Navigation() {
         <div className="container-fluid">
           <a className="navbar-brand p-0 m-0" href="#">
             <img
-              src="/public/taskvibepnglogo.png"
+              src="/taskvibepnglogo.png"
               alt="TaskVibe"
               width={130}
               // height={24}
