@@ -6,7 +6,7 @@
   min-height: 100vh;
 }
 .link-css {
-  text-decoration: none; 
+  text-decoration: none;
   color: inherit;
 }
 
@@ -52,13 +52,13 @@
 .second-section {
   width: 100%;
   height: 110vh;
-  padding: 0px 100px 0 100px;
+  padding: 30px 100px 0 100px;
   background-color: #dbe2ef;
 }
 .second-section-div {
   margin-bottom: 200px;
   width: 100%;
-  padding: 5rem;
+  padding: 2rem;
   flex-wrap: wrap;
   justify-content: space-around;
 }
@@ -134,22 +134,21 @@
   /* second section --------------------------------------------------- */
   .second-section {
     width: 100%;
-    height: 125vh;
-    padding: 50px 10px 50px 10px;
+    height: 185vh;
+    padding: 30px 10px 50px 10px;
     background-color: #dbe2ef;
   }
   .second-section-div {
     margin-bottom: 200px;
     width: 100%;
-    padding: 0rem;
+    padding-top: 1rem;
     flex-wrap: wrap;
     justify-content: space-around;
   }
   .features {
-    width: 45%;
-    height: 33vh;
-    margin-right: 5px;
-    padding: 5px;
+    width: 100%;
+    height: 24vh;
+    padding: 4px;
   }
   .features h3 {
     font-weight: bold;

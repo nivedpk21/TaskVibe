@@ -41,8 +41,9 @@ export default function Home() {
         {/* SECOND SECTION */}
         <section>
           <div className="second-section">
-            <div className="second-section-div border d-flex">
-              <div className="features text-center border rounded-4 border-light">
+            <h1 className="text-center">Features</h1>
+            <div className="second-section-div  d-flex">
+              <div className="features text-center border rounded-3 border-light bg-light">
                 <h3>Micro Tasks</h3>
                 <p>
                   Love games ? Sounds great! Win big in our <br /> games: Dice, Crash, Limbo, Plinko and
@@ -50,21 +51,21 @@ export default function Home() {
                   Roulette
                 </p>
               </div>
-              <div className="features text-center border rounded-4 border-light">
-                <h3>Payed To Click</h3>
+              <div className="features text-center border rounded-3 border-light bg-light">
+                <h3 className="">Payed To Click</h3>
                 <p>
                   Love games ? Sounds great! Win big in our <br /> games: Dice, Crash, Limbo, Plinko and
                   <br />
                   Roulette
                 </p>
               </div>
-              <div className="features text-center   border rounded-4 border-light">
+              <div className="features text-center   border rounded-3 border-light bg-light">
                 <h3>ShortUrl</h3>
                 <p>
                   Love games ? Sounds great! Win big in our <br /> games: Dice, Crash, Limbo, Plinko and
                 </p>
               </div>
-              <div className="features text-center   border rounded-4 border-light ">
+              <div className="features text-center   border rounded-3 border-light bg-light">
                 <h3>Surveys</h3>
                 <p>
                   Love games ? Sounds great! Win big in our <br /> games: Dice, Crash, Limbo, Plinko and
@@ -72,7 +73,7 @@ export default function Home() {
                   Roulette
                 </p>
               </div>
-              <div className="features text-center   border rounded-4 border-light ">
+              <div className="features text-center   border rounded-3 border-light bg-light">
                 <h3>Games</h3>
                 <p>
                   Love games ? Sounds great! Win big in our <br /> games: Dice, Crash, Limbo, Plinko and
@@ -80,7 +81,7 @@ export default function Home() {
                   Roulette
                 </p>
               </div>
-              <div className="features text-center  border rounded-4 border-light ">
+              <div className="features text-center  border rounded-3 border-light bg-light">
                 <h3>Advertising</h3>
                 <p>
                   Love games ? Sounds great! Win big in our <br /> games: Dice, Crash, Limbo, Plinko and

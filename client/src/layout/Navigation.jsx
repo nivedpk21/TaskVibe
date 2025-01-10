@@ -45,6 +45,7 @@ export default function Navigation() {
             className="offcanvas offcanvas-end"
             tabIndex={-1}
             id="offcanvasNavbar"
+            data-bs-scroll="true"
             aria-labelledby="offcanvasNavbarLabel">
             <div className="offcanvas-header">
               <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
