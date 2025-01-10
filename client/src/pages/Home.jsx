@@ -1,14 +1,16 @@
 import React, { Suspense } from "react";
 import { Link } from "react-router-dom";
 import "./home.css";
+import { injectSpeedInsights } from "@vercel/speed-insights";
 
-const Navigation = React.lazy(() => import("../layout/Navigation"));
-const Footer = React.lazy(() => import("../layout/Footer"));
+import Navigation from "../layout/Navigation";
+import Footer from "../layout/Footer";
+
+injectSpeedInsights();
 
 /*chat gpt scanned and optimised*/
 
 export default function Home() {
-
   return (
     <>
       <Suspense fallback={<div>...loading</div>}>
