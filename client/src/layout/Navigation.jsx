@@ -17,7 +17,7 @@ export default function Navigation() {
           <a className="navbar-brand p-0 m-0" href="#">
             <img
               src="/src/assets/taskvibepnglogo.png"
-              alt="Bootstrap"
+              alt="TaskVibe"
               width={130}
               // height={24}
             />

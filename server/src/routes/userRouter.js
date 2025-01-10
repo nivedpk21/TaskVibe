@@ -17,10 +17,8 @@ const taskReportModel = require("../models/taskReportModel");
 const userRouter = express.Router();
 
 // USER REGISTRATION
+/*Chat gpt scanned and optimised*/
 userRouter.post("/signup", async (req, res, next) => {
-  console.log("req", req.body);
-  console.log("api called");
-
   try {
     const { email, password, country } = req.body;
 
@@ -45,15 +43,15 @@ userRouter.post("/signup", async (req, res, next) => {
 
     // generate token for email verification
     const userID = userData._id;
-    const token = jwt.sign({ userID }, "jwtkey process.env.like", {
-      expiresIn: "1h",
+    const token = jwt.sign({ userID }, process.env.JWT_SECRET, {
+      expiresIn: "24h",
     });
 
     // send verification email with token and user email
     const type = "emailVerification";
-    await generateVerificationEmail(email, token, type);
+    generateVerificationEmail(email, token, type);
 
-    return res.status(200).json({
+    return res.status(201).json({
       message: "user registered successfully please check ur email for verification link",
       success: true,
       error: false,

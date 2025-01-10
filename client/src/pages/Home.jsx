@@ -8,6 +8,7 @@ const Footer = React.lazy(() => import("../layout/Footer"));
 /*chat gpt scanned and optimised*/
 
 export default function Home() {
+
   return (
     <>
       <Suspense fallback={<div>...loading</div>}>

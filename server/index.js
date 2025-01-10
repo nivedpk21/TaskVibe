@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
 const path = require("path");
 const mongoose = require("mongoose");
 require("dotenv").config();
@@ -10,10 +11,12 @@ const adminRouter = require("./src/routes/adminRouter");
 // setting up app
 const app = express();
 const PORT = 4000;
+app.use(helmet());
 app.use(cors());
+// app.use(cors({ origin: ["https://your-frontend.com"] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public"), { maxAge: "1d" }));
 
 // connect to mongoDB
 if (!process.env.MONGODB_URI) {
@@ -22,7 +25,11 @@ if (!process.env.MONGODB_URI) {
 }
 
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
   .then(() => console.log("connected to mongoDB"))
   .catch((error) => {
     console.error("mongoDb connection error", error);
