@@ -1,0 +1,31 @@
+#dashboard-div {
+  width: 90%;
+  height: 50vh;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.dash-info {
+  width: 24%;
+  height: 15vh;
+  padding: 0.8rem;
+  background-color: bisque;
+}
+
+@media only screen and (max-width: 576.5px) {
+  .dash-info {
+    width: 96%;
+    margin-bottom: 6px;
+  }
+}
+@media only screen and (min-width: 577px) and (max-width: 767.5px) {
+  .dash-info {
+    width: 48%;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991.5px) {
+  .dash-info {
+    width: 48%;
+  }
+}

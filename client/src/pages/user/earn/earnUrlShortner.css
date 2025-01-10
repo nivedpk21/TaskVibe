@@ -1,0 +1,37 @@
+.view-shorturl-header-div {
+  width: 50%;
+  height: 4vh;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  background-color: blueviolet;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding: 1px 20px 1px 20px;
+}
+.view-shorturl-div {
+  width: 50%;
+  height: 8vh;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media only screen and (max-width: 576.5px) {
+  .view-shorturl-div {
+    width: 100%;
+  }
+  .view-shorturl-header-div {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 577px) and (max-width: 767.5px) {
+  .view-shorturl-div {
+    width: 65%;
+  }
+  .view-shorturl-header-div {
+    width: 65%;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991.5px) {
+}

@@ -1,0 +1,54 @@
+/* add task form */
+.form-div {
+  width: 30%;
+  margin: 0 auto;
+}
+.api-input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.copy-btn {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+.table-responsive {
+  margin: 0 auto;
+}
+
+/*published task details table*/
+
+.tb-width {
+  width: 60%;
+}
+
+@media only screen and (max-width: 576.5px) {
+  /* add task form */
+  .form-div {
+    width: 90%;
+  }
+
+  /*published task details table*/
+  .tb-width {
+    width: 80%;
+  }
+}
+@media only screen and (min-width: 577px) and (max-width: 767.5px) {
+  /* add task form */
+  .form-div {
+    width: 60%;
+  }
+  /*published task details table*/
+  .tb-width {
+    width: 80%;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991.5px) {
+  /* add task form */
+  .form-div {
+    width: 50%;
+  }
+  /*published task details table*/
+  .tb-width {
+    width: 80%;
+  }
+}

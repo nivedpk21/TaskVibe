@@ -1,0 +1,21 @@
+.message-div {
+  width: 50%;
+  margin: 0 auto;
+  min-height: 30vh;
+}
+
+@media only screen and (max-width: 576.5px) {
+  .message-div {
+    width: 90%;
+  }
+}
+@media only screen and (min-width: 577px) and (max-width: 767.5px) {
+  .message-div {
+    width: 70%;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991.5px) {
+  .message-div {
+    width: 70%;
+  }
+}

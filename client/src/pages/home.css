@@ -1,0 +1,243 @@
+/*chat gpt scanned and non optimised*/
+
+.background-page {
+  background-color: #f9f7f7;
+  padding-top: 5rem;
+  min-height: 100vh;
+}
+.link-css {
+  text-decoration: none; 
+  color: inherit;
+}
+
+#password-input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.eye-btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* landing section --------------------------------------------- */
+.landing-section {
+  width: 100%;
+  height: 90vh;
+  padding: 100px 100px 0 100px;
+  background-color: #112d4e;
+}
+.first-section-div {
+  width: 100%;
+  height: auto;
+  margin-bottom: 100px;
+}
+.landing-text {
+  font-weight: 1000;
+  /* margin-top: 1.6rem; */
+  line-height: 4.7rem;
+  font-size: 72px;
+  background: linear-gradient(to right, #f32170, #ff6b08, #cf23cf, #eedd44);
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.landing-sub-text {
+  font-size: 1.4rem;
+  color: #dbe2ef;
+}
+.landing-btn-div {
+  margin-top: 3rem;
+}
+
+/* second section --------------------------------------------------- */
+.second-section {
+  width: 100%;
+  height: 110vh;
+  padding: 0px 100px 0 100px;
+  background-color: #dbe2ef;
+}
+.second-section-div {
+  margin-bottom: 200px;
+  width: 100%;
+  padding: 5rem;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.features {
+  width: 26%;
+  height: 40vh;
+  padding: 30px;
+  margin-bottom: 25px;
+}
+.features h3 {
+  color: #141436;
+  font-weight: bold;
+  font-size: 2rem;
+}
+.features p {
+  color: #14143689;
+  font-size: 1.1rem;
+}
+
+/*third section ------------------------------------------------------*/
+.third-section {
+  width: 100%;
+  height: 90vh;
+  padding: 100px 100px 0 100px;
+  background-color: #f9f7f7;
+}
+
+.third-section-div {
+  margin-bottom: 200px;
+  width: 100%;
+  height: 70vh;
+  padding: 5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.get-started h2 {
+  font-weight: 1000;
+  font-size: 2.3rem;
+  color: #112d4e;
+}
+.get-started p {
+  color: #141436;
+}
+
+@media only screen and (max-width: 576.5px) {
+  /* landing section --------------------------------------------- */
+  .landing-section {
+    height: 90vh;
+    padding: 50px 0px 0 20px;
+    background-color: #112d4e;
+  }
+  .first-section-div {
+    height: auto;
+  }
+  .landing-text {
+    font-weight: 1000;
+    /* margin-top: 1.6rem; */
+    line-height: 4.4rem;
+    font-size: 52px;
+    background: linear-gradient(to right, #f32170, #ff6b08, #cf23cf, #eedd44);
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .landing-sub-text {
+    font-size: 1.1rem;
+    color: #dbe2ef;
+  }
+  .landing-btn-div {
+    margin-top: 2rem;
+  }
+
+  /* second section --------------------------------------------------- */
+  .second-section {
+    width: 100%;
+    height: 125vh;
+    padding: 50px 10px 50px 10px;
+    background-color: #dbe2ef;
+  }
+  .second-section-div {
+    margin-bottom: 200px;
+    width: 100%;
+    padding: 0rem;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .features {
+    width: 45%;
+    height: 33vh;
+    margin-right: 5px;
+    padding: 5px;
+  }
+  .features h3 {
+    font-weight: bold;
+    font-size: 1.7rem;
+  }
+  .features p {
+    font-size: 1rem;
+  }
+
+  /*third section ------------------------------------------------------*/
+  .third-section {
+    width: 100%;
+    height: 90vh;
+    padding: 50px 10px 50px 10px;
+    background-color: #f9f7f7;
+  }
+
+  .third-section-div {
+    margin-bottom: 200px;
+    width: 100%;
+    height: 70vh;
+    padding: 5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .get-started h2 {
+    font-weight: 1000;
+    font-size: 2.3rem;
+    color: #112d4e;
+  }
+  .get-started p {
+    color: #141436;
+  }
+}
+@media only screen and (min-width: 577px) and (max-width: 767.5px) {
+  .landing-section {
+    height: 90vh;
+    padding: 90px 90px 0 90px;
+  }
+  .landing-text {
+    font-weight: 1000;
+    /* margin-top: 1.6rem; */
+    line-height: 4.5rem;
+    font-size: 62px;
+    background: linear-gradient(to right, #f32170, #ff6b08, #cf23cf, #eedd44);
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* second section --------------------------------------------------- */
+  .second-section {
+    width: 100%;
+    height: 150vh;
+    padding: 0;
+    background-color: #dbe2ef;
+  }
+  .second-section-div {
+    margin-bottom: 200px;
+    width: 100%;
+    /* height: 70vh; */
+    /* padding: 5rem; */
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .features {
+    width: 46%;
+    padding: 15px;
+  }
+  .features h3 {
+    color: #141436;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+  .features p {
+    color: #14143689;
+    font-size: 1.1rem;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991.5px) {
+  /* //hello */
+  .second-section {
+    padding: 0px 0px 0 0px;
+  }
+
+  .features {
+    width: 26%;
+    /* margin-right: 10px; */
+    padding: 15px;
+  }
+}

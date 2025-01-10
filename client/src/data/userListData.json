@@ -1,0 +1,63 @@
+[
+    {
+      "_id": "64bcd1a9f45e1f3e5b2391a9",
+      "email": "john.doe@example.com",
+      "country": "USA",
+      "wallet": { "$numberDecimal": "100.50" }
+    },
+    {
+      "_id": "64bcd1a9f45e1f3e5b2391b0",
+      "email": "jane.smith@example.com",
+      "country": "Canada",
+      "wallet": { "$numberDecimal": "200.00" }
+    },
+    {
+      "_id": "64bcd1a9f45e1f3e5b2391b1",
+      "email": "alex.jones@example.com",
+      "country": "UK",
+      "wallet": { "$numberDecimal": "150.75" }
+    },
+    {
+      "_id": "64bcd1a9f45e1f3e5b2391b2",
+      "email": "maria.garcia@example.com",
+      "country": "Spain",
+      "wallet": { "$numberDecimal": "50.25" }
+    },
+    {
+      "_id": "64bcd1a9f45e1f3e5b2391b3",
+      "email": "li.wei@example.com",
+      "country": "China",
+      "wallet": { "$numberDecimal": "300.40" }
+    },
+    {
+      "_id": "64bcd1a9f45e1f3e5b2391b4",
+      "email": "fatima.khan@example.com",
+      "country": "India",
+      "wallet": { "$numberDecimal": "75.00" }
+    },
+    {
+      "_id": "64bcd1a9f45e1f3e5b2391b5",
+      "email": "william.brown@example.com",
+      "country": "Australia",
+      "wallet": { "$numberDecimal": "120.35" }
+    },
+    {
+      "_id": "64bcd1a9f45e1f3e5b2391b6",
+      "email": "hana.yamada@example.com",
+      "country": "Japan",
+      "wallet": { "$numberDecimal": "90.10" }
+    },
+    {
+      "_id": "64bcd1a9f45e1f3e5b2391b7",
+      "email": "ahmed.ali@example.com",
+      "country": "Egypt",
+      "wallet": { "$numberDecimal": "110.25" }
+    },
+    {
+      "_id": "64bcd1a9f45e1f3e5b2391b8",
+      "email": "olga.ivanova@example.com",
+      "country": "Russia",
+      "wallet": { "$numberDecimal": "60.50" }
+    }
+  ]
+  

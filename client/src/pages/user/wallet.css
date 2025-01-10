@@ -1,0 +1,19 @@
+.wallet-div {
+  width: 60%;
+}
+
+@media only screen and (max-width: 576.5px) {
+  .wallet-div {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 577px) and (max-width: 767.5px) {
+  .wallet-div {
+    width: 70%;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991.5px) {
+  .wallet-div {
+    width: 70%;
+  }
+}

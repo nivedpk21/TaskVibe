@@ -1,0 +1,37 @@
+.contact-page {
+  width: 60%;
+  padding-bottom: 50px;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+}
+
+.card h3 {
+  color: #112d4e;
+}
+
+.card p {
+  color: #6c757d;
+}
+
+.card {
+  border-radius: 5px;
+}
+
+@media only screen and (max-width: 576.5px) {
+  .contact-page {
+    width: 95%;
+  }
+}
+@media only screen and (min-width: 577px) and (max-width: 767.5px) {
+  .contact-page {
+    width: 65%;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991.5px) {
+  .contact-page {
+    width: 70%;
+  }
+}
