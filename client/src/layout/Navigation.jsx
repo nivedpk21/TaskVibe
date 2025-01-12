@@ -1,6 +1,6 @@
 import { clearAuthData, getAuthData } from "../utils/auth";
 import "./navigation.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 export default function Navigation() {
   const navigate = useNavigate();
@@ -14,24 +14,10 @@ export default function Navigation() {
     <>
       <nav className="navbar bg-body-light navbar-expand-lg  shadow-sm">
         <div className="container-fluid">
-          <a className="navbar-brand p-0 m-0" href="#">
-            <img
-              src="/taskvibepnglogo.png"
-              alt="TaskVibe"
-              width={130}
-              // height={24}
-            />
-          </a>
+          <Link className="navbar-brand p-0 m-0" to="/">
+            <img src="/taskvibepnglogo.png" alt="TaskVibe" width={130} />
+          </Link>
 
-          {/* <NavLink className="navbar-brand" to="/">
-            TaskVibe
-            <img
-              style={{ width: "20%", height: "auto", padding: "0", margin: "0" }}
-              src="/src/assets/Screenshot 2025-01-10 115005.png"
-              className="img-fluid rounded-top"
-              alt="logo"
-            />
-          </NavLink> */}
           <button
             className="navbar-toggler"
             type="button"
