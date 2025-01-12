@@ -126,7 +126,7 @@ userRouter.post("/signin", async (req, res, next) => {
         role: existingUser.role,
         sessionId: sessionId,
       },
-      "encryption_key",
+      process.env.JWT_SECRET,
       { expiresIn: "24h" }
     );
     return res.status(200).json({
@@ -154,7 +154,7 @@ userRouter.post("/forgotpassword", async (req, res, next) => {
 
     // generate token
     const userId = existingUser._id;
-    const token = jwt.sign({ userId }, "jwt sectret key", {
+    const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
       expiresIn: "15min",
     });
 
@@ -163,7 +163,7 @@ userRouter.post("/forgotpassword", async (req, res, next) => {
     await generateVerificationEmail(email, token, type);
 
     return res.status(200).json({
-      message: "password reset link send to your registered email",
+      message: "password reset link is send to your registered email",
       success: true,
       error: false,
     });
