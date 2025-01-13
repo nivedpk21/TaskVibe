@@ -12,8 +12,7 @@ const adminRouter = require("./src/routes/adminRouter");
 const app = express();
 const PORT = 4000;
 app.use(helmet());
-app.use(cors());
-// app.use(cors({ origin: ["https://your-frontend.com"] }));
+app.use(cors({ origin: [process.env.CLIENT_URL] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public"), { maxAge: "1d" }));
@@ -33,7 +32,7 @@ mongoose
   });
 // routes
 app.get("/", (req, res) => {
-  res.send("server is live"); 
+  res.send("server is live");
 });
 // user router
 app.use("/user", userRouter);
