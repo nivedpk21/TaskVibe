@@ -132,8 +132,6 @@ export default function EarnUrlShortner() {
           </div>
         </div>
 
-        {error && <p className="text-danger text-center">{error}</p>}
-
         {Array.isArray(data) && data.length > 0 ? (
           data.map((item) => (
             <div key={item._id} className="view-shorturl-div border rounded-4 shadow-sm p-3 mb-3">

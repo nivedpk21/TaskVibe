@@ -2,9 +2,9 @@ import axios from "axios";
 import { clearAuthData } from "./auth";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: "https://taskvibe-production.up.railway.app",
 });
-
+ 
 // you can also add a request interceptor to attach the token here
 
 // response interceptor: handle token expiry

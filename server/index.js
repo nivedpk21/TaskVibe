@@ -31,10 +31,9 @@ mongoose
     console.error("mongoDb connection error", error);
     process.exit(1);
   });
-
 // routes
 app.get("/", (req, res) => {
-  res.send("server is live");
+  res.send("server is live"); 
 });
 // user router
 app.use("/user", userRouter);
