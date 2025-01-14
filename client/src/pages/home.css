@@ -33,49 +33,51 @@
 }
 .landing-text {
   font-weight: 1000;
-  /* margin-top: 1.6rem; */
-  line-height: 4.7rem;
+  line-height: 5rem;
   font-size: 72px;
   background: linear-gradient(to right, #f32170, #ff6b08, #cf23cf, #eedd44);
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 .landing-sub-text {
-  font-size: 1.4rem;
+  margin-top: 1.3rem;
+  font-size: 1.3rem;
   color: #dbe2ef;
 }
+.landing-start-text {
+  margin-top: 1rem;
+  font-size: 2rem;
+  color: #eedd44;
+}
 .landing-btn-div {
-  margin-top: 3rem;
+  margin-top: 2rem;
+  margin-left: -0.6rem;
 }
 
 /* second section --------------------------------------------------- */
 .second-section {
   width: 100%;
-  height: 110vh;
+  height: 80vh;
   padding: 30px 100px 0 100px;
   background-color: #dbe2ef;
 }
 .second-section-div {
   margin-bottom: 200px;
   width: 100%;
-  padding: 2rem;
+  padding: 3rem;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
 }
-.features {
-  width: 26%;
-  height: 40vh;
-  padding: 30px;
-  margin-bottom: 25px;
+.feature {
+  width: 40%;
+  padding: 1.5rem;
+  background-color: white;
+  height: 250px;
 }
-.features h3 {
-  color: #141436;
-  font-weight: bold;
-  font-size: 2rem;
-}
-.features p {
-  color: #14143689;
+.feature-text {
+  margin-top: 1.1rem;
   font-size: 1.1rem;
+  line-height: 2rem;
 }
 
 /*third section ------------------------------------------------------*/
@@ -108,7 +110,7 @@
   /* landing section --------------------------------------------- */
   .landing-section {
     height: 90vh;
-    padding: 50px 0px 0 20px;
+    padding: 40px 0px 0px 20px;
     background-color: #112d4e;
   }
   .first-section-div {
@@ -126,43 +128,42 @@
   .landing-sub-text {
     font-size: 1.1rem;
     color: #dbe2ef;
+    line-height: 2.1rem;
   }
   .landing-btn-div {
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
-
   /* second section --------------------------------------------------- */
   .second-section {
     width: 100%;
-    height: 185vh;
-    padding: 30px 10px 50px 10px;
+    height: 100vh;
+    padding: 30px 0px 0 0px;
     background-color: #dbe2ef;
   }
   .second-section-div {
     margin-bottom: 200px;
     width: 100%;
-    padding-top: 1rem;
+    padding: 2rem;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
   }
-  .features {
+  .feature {
     width: 100%;
-    height: 24vh;
-    padding: 4px;
+    padding: 1.4rem;
+    height: 240px;
+    margin-bottom: 1rem;
   }
-  .features h3 {
-    font-weight: bold;
-    font-size: 1.7rem;
-  }
-  .features p {
-    font-size: 1rem;
+  .feature-text {
+    margin-top: 1.1rem;
+    font-size: 1.1rem;
+    line-height: 2rem;
   }
 
   /*third section ------------------------------------------------------*/
   .third-section {
     width: 100%;
-    height: 90vh;
-    padding: 50px 10px 50px 10px;
+    height: 80vh;
+    padding: 40px 10px 40px 10px;
     background-color: #f9f7f7;
   }
 
@@ -198,34 +199,30 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-
   /* second section --------------------------------------------------- */
   .second-section {
     width: 100%;
-    height: 150vh;
-    padding: 0;
+    height: 80vh;
+    padding: 30px 10px 0 10px;
     background-color: #dbe2ef;
   }
   .second-section-div {
     margin-bottom: 200px;
     width: 100%;
-    /* height: 70vh; */
-    /* padding: 5rem; */
+    padding: 3rem;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
   }
-  .features {
-    width: 46%;
-    padding: 15px;
+  .feature {
+    width: 40%;
+    padding: 1.5rem;
+    background-color: white;
+    height: 250px;
   }
-  .features h3 {
-    color: #141436;
-    font-weight: bold;
-    font-size: 2rem;
-  }
-  .features p {
-    color: #14143689;
+  .feature-text {
+    margin-top: 1.1rem;
     font-size: 1.1rem;
+    line-height: 2rem;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 991.5px) {
