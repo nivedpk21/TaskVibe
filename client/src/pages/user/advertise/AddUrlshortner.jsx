@@ -4,9 +4,10 @@ import "./addUrlShortner.css";
 import axiosInstance from "../../../utils/axiosInstance.js";
 import toast from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
+import { getAuthData } from "../../../utils/auth.js";
 
 export default function AddUrlshortner() {
-  const token = localStorage.getItem("token");
+  const { role, token } = getAuthData();
   const [display, setDisplay] = useState("");
   const [data, setData] = useState([]);
   const [button, setButton] = useState(false);
@@ -79,7 +80,7 @@ export default function AddUrlshortner() {
       .then((response) => {
         console.log(response.data.data);
         setData(response.data.data);
-        if (response.data.data.length === 0) {
+        if (role === "user" && response.data.data.length === 0) {
           setButton(true);
         }
       })
