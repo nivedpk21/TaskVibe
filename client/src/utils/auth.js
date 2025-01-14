@@ -5,6 +5,7 @@ export const getAuthData = () => {
   return {
     isAuthenticated: !!token, // true if token exists
     role: role || null, // return role if available
+    token: token || null, // return token if available
   };
 };
 

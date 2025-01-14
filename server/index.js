@@ -10,7 +10,7 @@ const adminRouter = require("./src/routes/adminRouter");
 
 // setting up app
 const app = express();
-const PORT = 4000;
+const PORT = 4000; 
 app.use(helmet());
 app.use(cors({ origin: [process.env.CLIENT_URL] }));
 app.use(express.json());
