@@ -8,6 +8,7 @@ import { getAuthData } from "../../../utils/auth.js";
 
 export default function AddUrlshortner() {
   const { role, token } = getAuthData();
+  const clientUrl = import.meta.env.VITE_CLIENT_URL;
 
   const [display, setDisplay] = useState("");
   const [data, setData] = useState([]);
@@ -22,7 +23,7 @@ export default function AddUrlshortner() {
 
   const apiUrl = useMemo(() => {
     if (userId && uniqueId) {
-      return `http://taskvibe.icu/destination-shortUrl/${userId}/${uniqueId}`;
+      return `${clientUrl}/destination-shortUrl/${userId}/${uniqueId}`;
     }
     return "";
   }, [userId, uniqueId]);
