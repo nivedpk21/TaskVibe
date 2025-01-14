@@ -50,28 +50,30 @@ export default function Wallet() {
             <div className="card-body">
               {data.length > 0 ? (
                 <>
-                  <table className="table table-bordered">
-                    <thead className="table-light">
-                      <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">TaskId</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Amount ($)</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data.map((transaction) => (
-                        <tr key={transaction._id}>
-                          <td>{new Date(transaction.createdAt).toLocaleDateString("en-us")}</td>
-                          <td>{transaction._id}</td>
-                          <td>{transaction.type}</td>
-                          <td className={transaction.type === "credit" ? "text-success" : "text-danger"}>
-                            {transaction.amount.$numberDecimal.toString()}
-                          </td>
+                  <div className="table-responsive">
+                    <table className="table table-bordered">
+                      <thead className="table-light">
+                        <tr>
+                          <th scope="col">Date</th>
+                          <th scope="col">TaskId</th>
+                          <th scope="col">Type</th>
+                          <th scope="col">Amount ($)</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {data.map((transaction) => (
+                          <tr key={transaction._id}>
+                            <td>{new Date(transaction.createdAt).toLocaleDateString("en-us")}</td>
+                            <td>{transaction._id}</td>
+                            <td>{transaction.type}</td>
+                            <td className={transaction.type === "credit" ? "text-success" : "text-danger"}>
+                              {transaction.amount.$numberDecimal.toString()}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                   {/* Pagination Controls */}
                   <nav>
                     <ul className="pagination justify-content-center">
