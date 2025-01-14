@@ -17,7 +17,7 @@ const checkAuth = async (req, res, next) => {
       });
     }
 
-    const decodedToken = jwt.verify(token, "encryption_key");
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     const userData = await userModel.findById(decodedToken.userId);
 
     if (!userData || userData.sessionId !== decodedToken.sessionId) {

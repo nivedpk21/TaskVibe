@@ -66,7 +66,7 @@ userRouter.get("/verify-email/:token", async (req, res, next) => {
   const { token } = req.params;
   try {
     // token verification
-    const decodedToken = jwt.verify(token, "jwtkey process.env.like");
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decodedToken.userID;
 
     // update status
@@ -176,7 +176,7 @@ userRouter.post("/forgotpassword", async (req, res, next) => {
 userRouter.get("/resetpassword", async (req, res, next) => {
   const { token, password } = req.body;
   try {
-    const decodedToken = jwt.verify(token, "jwt secret key ");
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     if (!decodedToken) {
       const error = new Error("Token expired");
       error.status = 400;
