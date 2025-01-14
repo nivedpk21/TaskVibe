@@ -10,7 +10,7 @@ injectSpeedInsights();
 
 /*chat gpt scanned and optimised*/
 /**testing deployment railway */
-//client changes next nice
+//client changes
 
 export default function Home() {
   return (
