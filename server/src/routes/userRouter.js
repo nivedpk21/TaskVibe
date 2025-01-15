@@ -641,7 +641,10 @@ userRouter.get(
       const currentBalance = parseFloat(userData.wallet.toString());
       userData.wallet = mongoose.Types.Decimal128.fromString((currentBalance + payPerView).toString());
       await userData.save();
-      // update payment to admin wallet
+      /* update payment to admin wallet (before taking admin commision check for referer, if present check user earning.
+      if user earning less than 1$ referer can get commision until user earning reach 1$, remove refer from user profile,
+      delete userData from refer earning table
+      )*/
       const adminData = await userModel.findById("677bb688cfd1dc73c1e1e25e");
       const currentAdminBalance = parseFloat(adminData.wallet.toString());
       adminData.wallet = mongoose.Types.Decimal128.fromString((currentAdminBalance + fee).toString());
