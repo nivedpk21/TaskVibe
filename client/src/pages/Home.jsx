@@ -12,7 +12,7 @@ injectSpeedInsights();
 /*client url changed*/
 
 export default function Home() {
-
+  console.log("nice");
   return (
     <>
       <Suspense fallback={<div>...loading</div>}>
