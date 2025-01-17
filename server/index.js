@@ -7,7 +7,7 @@ require("dotenv").config();
 
 const userRouter = require("./src/routes/userRouter");
 
-// setting up app
+// setting up express app
 const app = express();
 const PORT = 4000;
 app.use(helmet());
