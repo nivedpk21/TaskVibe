@@ -49,14 +49,12 @@ export default function UpdatePassword() {
     e.preventDefault();
     const newError = validate(inputData);
     setFormErrors(newError);
-    console.log(formErrors);
 
     if (Object.keys(newError).length === 0) {
       setIsSubmit(true);
       axiosInstance
         .post("/user/update-password", inputData, { headers: { Authorization: `bearer ${token}` } })
         .then((response) => {
-          console.log(response);
           setIsSuccess(true);
           toast.success(response.data.message);
           setTimeout(() => {
@@ -64,7 +62,6 @@ export default function UpdatePassword() {
           }, 3000);
         })
         .catch((error) => {
-          console.log(error);
           toast.error(error.response?.data?.message || "An error occured");
         })
         .finally(() => {

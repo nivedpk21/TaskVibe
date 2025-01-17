@@ -39,7 +39,6 @@ export default function AddUrlshortner() {
     status: "active",
   });
   const [formErrors, setFormErrors] = useState({});
-  // console.log("inputData", inputData);
 
   const handleChange = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
@@ -80,27 +79,27 @@ export default function AddUrlshortner() {
     axiosInstance
       .get("/user/fetch-document", { headers: { Authorization: `bearer ${token}` } })
       .then((response) => {
-        console.log(response.data.data);
         setData(response.data.data);
         if (role === "user" && response.data.data.length === 0) {
+          setButton(true);
+        } else {
           setButton(true);
         }
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("an error occured");
       });
 
     // get userData for user_id and balance
     axiosInstance
       .get("/user/profile", { headers: { Authorization: `bearer ${token}` } })
       .then((response) => {
-        console.log(response);
         const walletBalance = parseFloat(response?.data?.data?.wallet?.$numberDecimal);
         setBalance(walletBalance);
         setUserId(response.data.data._id);
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("an error occured");
       });
   }, [token, fetch]);
 
@@ -131,7 +130,6 @@ export default function AddUrlshortner() {
         setAmount: total,
         status: inputData.status,
       };
-      // loading
       setLoading(true);
       //api call
       axiosInstance
@@ -139,13 +137,19 @@ export default function AddUrlshortner() {
           headers: { Authorization: `bearer ${token}` },
         })
         .then((response) => {
-          console.log(response);
           toast.success(response.data.message);
+          setInputData({
+            name: "",
+            destUrl: "",
+            shortUrl: "",
+            payPerView: 0.001,
+            targetViews: 10,
+            status: "active",
+          });
           setDisplay("");
           setFetch((prev) => !prev);
         })
         .catch((error) => {
-          console.log(error);
           toast.error(error.response.data.message || "an error occured");
         })
         .finally(() => {
@@ -159,11 +163,10 @@ export default function AddUrlshortner() {
     axiosInstance
       .get(`/user/pause-task/${taskId}`, { headers: { Authorization: `bearer ${token}` } })
       .then((response) => {
-        console.log(response);
         setFetch((prev) => !prev);
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("an error occured");
       });
   };
 
@@ -172,11 +175,10 @@ export default function AddUrlshortner() {
     axiosInstance
       .get(`/user/publish-task/${taskId}`, { headers: { Authorization: `bearer ${token}` } })
       .then((response) => {
-        console.log(response);
         setFetch((prev) => !prev);
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("an error occured");
       });
   };
 
@@ -185,11 +187,10 @@ export default function AddUrlshortner() {
     axiosInstance
       .get(`/user/delete-task/${taskId}`, { headers: { Authorization: `bearer ${token}` } })
       .then((response) => {
-        console.log(response);
         setFetch((prev) => !prev);
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("an error occured");
       });
   };
 
@@ -214,7 +215,7 @@ export default function AddUrlshortner() {
                     onChange={handleChange}
                     aria-describedby="emailHelpId"
                     placeholder="Shorturl Name"
-                    maxLength="15"
+                    maxLength="10"
                   />
                   <span className="invalid-feedback">{formErrors.name}</span>
                 </div>
@@ -298,14 +299,34 @@ export default function AddUrlshortner() {
 
                 <div className="d-flex">
                   <button
-                    onClick={() => setDisplay("")}
+                    onClick={() => {
+                      setDisplay("");
+                      setInputData({
+                        name: "",
+                        destUrl: "",
+                        shortUrl: "",
+                        payPerView: 0.001,
+                        targetViews: 10,
+                        status: "active",
+                      });
+                    }}
                     type="button"
                     className="btn btn-outline-danger ms-auto btn-sm me-1">
                     Cancel
                   </button>
-                  <button type="submit" className="btn btn-primary btn-sm">
-                    Publish
-                  </button>
+                  {loading ? (
+                    <>
+                      <button className="btn btn-primary btn-sm">
+                        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button type="submit" className="btn btn-primary btn-sm">
+                        Publish
+                      </button>
+                    </>
+                  )}
                 </div>
               </form>
             </div>

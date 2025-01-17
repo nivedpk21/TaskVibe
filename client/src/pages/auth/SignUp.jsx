@@ -3,6 +3,7 @@ import axiosInstance from "./../../utils/axiosInstance.js";
 import toast from "react-hot-toast";
 import Navigation from "../../layout/Navigation";
 import "./signup.css";
+import { useNavigate } from "react-router-dom";
 
 /*chat gpt scanned and optimised*/
 
@@ -218,6 +219,7 @@ export default function SignUp() {
   const [isSubmit, setIsSubmit] = useState(false);
   const [loading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const inputChange = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
@@ -269,7 +271,6 @@ export default function SignUp() {
         setIsSubmit(true);
         setIsLoading(true);
         const response = await axiosInstance.post("/user/signup", inputData);
-        console.log(response);
         toast.success(response.data.message);
         setInputData({
           email: "",
@@ -277,6 +278,10 @@ export default function SignUp() {
           password: "",
           confirmPassword: "",
         });
+        setIsChecked(false);
+        setTimeout(() => {
+          navigate("/signin");
+        }, 3000);
       } catch (error) {
         console.error("error", error);
         toast.error(error.response?.data?.message || "An error occured.");
@@ -304,6 +309,7 @@ export default function SignUp() {
                 onChange={inputChange}
                 maxLength={35}
                 disabled={isSubmit}
+                value={inputData.email}
               />
               <span className="invalid-feedback">{formErrors.email}</span>
             </div>
@@ -317,7 +323,8 @@ export default function SignUp() {
                 }
                 name="country"
                 onChange={inputChange}
-                disabled={isSubmit}>
+                disabled={isSubmit}
+                value={inputData.country}>
                 <option value="">Select Country</option>
                 {countries.map((country, index) => (
                   <option value={country} key={index}>
@@ -340,6 +347,7 @@ export default function SignUp() {
                     placeholder="password"
                     maxLength={24}
                     disabled={isSubmit}
+                    value={inputData.password}
                   />
                   <button
                     type="button"
@@ -388,6 +396,7 @@ export default function SignUp() {
                   placeholder="confirmPassword"
                   maxLength={24}
                   disabled={isSubmit}
+                  value={inputData.confirmPassword}
                 />
                 <span className="invalid-feedback">{formErrors.confirmPassword}</span>
               </div>
@@ -410,7 +419,7 @@ export default function SignUp() {
               {loading ? (
                 <>
                   <button type="button" name id className="btn btn-primary">
-                    ...
+                    <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
                   </button>
                 </>
               ) : (

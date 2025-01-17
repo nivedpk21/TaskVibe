@@ -21,12 +21,10 @@ export default function ForgotPassword() {
     axiosInstance
       .post("/user/forgotpassword", inputData)
       .then((response) => {
-        console.log(response);
         toast.success(response?.data?.message);
         setIsSent(true);
       })
       .catch((error) => {
-        console.log(error);
         toast.error(error?.response?.data.message || error.message);
       })
       .finally(() => {

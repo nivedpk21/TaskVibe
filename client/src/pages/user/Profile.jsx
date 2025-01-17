@@ -3,6 +3,7 @@ import Navigation from "../../layout/Navigation";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function Profile() {
   const token = localStorage.getItem("token");
@@ -12,11 +13,10 @@ export default function Profile() {
     axiosInstance
       .get("/user/profile", { headers: { Authorization: `bearer ${token}` } })
       .then((response) => {
-        console.log(response);
         setData(response.data.data);
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("an error occured");
       });
   }, [token]);
 

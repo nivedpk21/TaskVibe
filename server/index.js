@@ -6,11 +6,10 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const userRouter = require("./src/routes/userRouter");
-const adminRouter = require("./src/routes/adminRouter");
 
 // setting up app
 const app = express();
-const PORT = 4000; 
+const PORT = 4000;
 app.use(helmet());
 app.use(cors({ origin: [process.env.CLIENT_URL] }));
 app.use(express.json());
@@ -36,8 +35,6 @@ app.get("/", (req, res) => {
 });
 // user router
 app.use("/user", userRouter);
-// admin router
-app.use("/admin", adminRouter);
 // 404 handler for unknown routes
 app.use("*", (req, res, next) => {
   res.status(404).json({ message: "Route not found" });

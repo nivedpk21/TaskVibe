@@ -9,17 +9,17 @@ const axiosInstance = axios.create({
 
 // response interceptor: handle token expiry
 
-// axiosInstance.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     if (error.response?.status === 401) {
-//       //token is expired
-//       clearAuthData();
-//       alert("Your session has expired. Please log in again.");
-//       window.location.href = "/signin"; //redirect to login page
-//     }
-//     return Promise.reject(error); // return error to api call
-//   }
-// );
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      //token is expired
+      clearAuthData();
+      alert("Your session has expired. Please log in again.");
+      window.location.href = "/signin"; //redirect to login page
+    }
+    return Promise.reject(error); // return error to api call
+  }
+);
 
 export default axiosInstance;

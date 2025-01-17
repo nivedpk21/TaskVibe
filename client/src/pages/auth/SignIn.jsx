@@ -55,7 +55,6 @@ export default function SignIn() {
       setLoading(true);
       try {
         const response = await axiosInstance.post("/user/signin", inputdata);
-        console.log(response);
         const { token, role, message } = response.data;
         setAuthData(token, role);
 
@@ -68,7 +67,6 @@ export default function SignIn() {
           }
         }, 2000);
       } catch (error) {
-        console.log(error);
         toast.error(error.response.data.message);
       } finally {
         setIsSubmit(false);
@@ -155,7 +153,7 @@ export default function SignIn() {
               <>
                 <div className="d-grid gap-2 mb-1">
                   <button type="button" className="btn btn-primary">
-                    ...
+                    <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
                   </button>
                 </div>
               </>

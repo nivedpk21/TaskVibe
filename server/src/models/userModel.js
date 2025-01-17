@@ -14,6 +14,8 @@ const userSchema = new mongoose.Schema(
     isVerified: { type: Boolean, default: false },
     accountStatus: { type: String, enum: ["active", "suspended"], default: "active" },
     sessionId: { type: String, default: null },
+    refererCode: { type: String, unique: true },
+    referredBy: { type: String, default: null },
   },
   { timestamps: true }
 );

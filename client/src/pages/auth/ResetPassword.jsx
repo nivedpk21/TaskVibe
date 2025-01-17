@@ -42,18 +42,15 @@ export default function ResetPassword() {
     e.preventDefault();
     const newError = validate(inputData);
     setFormErrors(newError);
-    console.log(formErrors);
 
     if (Object.keys(newError).length === 0) {
       setIsSubmit(true);
       axiosInstance
         .post("/user/resetpassword", inputData, { headers: { Authorization: `bearer ${token}` } })
         .then((response) => {
-          console.log(response);
           setIsSuccess(true);
         })
         .catch((error) => {
-          console.log(error);
         })
         .finally(() => {
           setIsSubmit(false);

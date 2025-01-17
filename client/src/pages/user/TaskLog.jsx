@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Navigation from "../../layout/Navigation";
 import "./tasklog.css";
 import axiosInstance from "../../utils/axiosInstance";
+import toast from "react-hot-toast";
 
 const TaskLog = () => {
   const [data, setData] = useState([]);
@@ -19,12 +20,11 @@ const TaskLog = () => {
     axiosInstance
       .get(`/user/tasklog?page=${page}&limit=6`, { headers: { Authorization: `bearer ${token}` } })
       .then((response) => {
-        console.log(response);
         setData(response.data.data);
         setTotalPages(response.data.pagination.totalPages); // Set total pages
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("an error occured");
       })
       .finally(() => {
         setLoading(false);

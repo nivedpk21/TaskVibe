@@ -2,6 +2,7 @@ import "./wallet.css";
 import Navigation from "../../layout/Navigation";
 import { useEffect, useState } from "react";
 import axiosInstance from "./../../utils/axiosInstance.js";
+import toast from "react-hot-toast";
 
 export default function Wallet() {
   const token = localStorage.getItem("token");
@@ -19,7 +20,7 @@ export default function Wallet() {
         setTotalPages(response.data.pagination.totalPages); // Set total pages from pagination metadata
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("an error occured");
       });
   }, [currentPage, token]); // Fetch transactions whenever currentPage changes
 

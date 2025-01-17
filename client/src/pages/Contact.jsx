@@ -20,7 +20,6 @@ export default function Contact() {
     setIsSubmitting(true);
     try {
       // Simulate a POST request (Replace this with an actual API call)
-      console.log("Submitting form data:", formData);
       setTimeout(() => {
         alert("Message sent successfully!");
         setFormData({ name: "", email: "", message: "" });

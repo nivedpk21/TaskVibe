@@ -16,11 +16,14 @@ const taskReportModel = require("../models/taskReportModel");
 
 const userRouter = express.Router();
 
-// USER REGISTRATION
-/*Chat gpt scanned and optimised*/
+// USER REGISTRATION (gpt scanned and optimised)
 userRouter.post("/signup", async (req, res, next) => {
   try {
-    const { email, password, country } = req.body;
+    const { email, password, country, referredBy } = req.body;
+
+    // Dynamically import nanoid
+    const { customAlphabet } = await import("nanoid"); // Dynamically import nanoid
+    const nanoid = customAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", 6); // Generate 6-character code
 
     // check for existing user
     const existingEmail = await userModel.findOne({ email: email });
@@ -33,11 +36,46 @@ userRouter.post("/signup", async (req, res, next) => {
     // hash the password
     const hashedPass = await bcrypt.hash(password, 10);
 
+    // Validate referredBy (if provided)
+    let validReferredBy = null;
+    if (referredBy) {
+      const referringUser = await userModel.findOne({ refererCode: referredBy });
+      if (referringUser) {
+        validReferredBy = referringUser.refererCode; // Use valid refererCode
+      }
+    }
+
+    // Generate a unique referer code for the user
+    let refererCode;
+    let isUnique = false;
+    let attempt = 0;
+
+    // Limit attempts to prevent infinite loop
+    while (!isUnique && attempt < 100) {
+      refererCode = nanoid(); // Generate 6-character code
+      const existingCode = await userModel.findOne({ refererCode });
+      if (!existingCode) {
+        isUnique = true;
+      }
+      attempt++;
+    }
+
+    // If unique referer code is not found after 100 attempts, return error
+    if (!isUnique) {
+      return res.status(500).json({
+        message: "Could not generate unique referral code. Please try again later.",
+        success: false,
+        error: true,
+      });
+    }
+
     // save the user
     const userData = new userModel({
       email,
       password: hashedPass,
       country,
+      refererCode,
+      referredBy: validReferredBy,
     });
     await userData.save();
 
@@ -61,16 +99,32 @@ userRouter.post("/signup", async (req, res, next) => {
   }
 });
 
-//VERIFY EMAIL
+//VERIFY EMAIL (gpt scanned and optimised)
 userRouter.get("/verify-email/:token", async (req, res, next) => {
   const { token } = req.params;
   try {
     // token verification
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-    const userId = decodedToken.userID;
 
-    // update status
-    await userModel.findByIdAndUpdate(userId, { isVerified: true, verifiedAt: new Date() });
+    // check if user exists in the database
+    const user = await userModel.findById(decodedToken.userID);
+    if (!user) {
+      const error = new Error("user not found");
+      error.status = 404;
+      throw error;
+    }
+
+    // If the user is already verified, return an appropriate message
+    if (user.isVerified) {
+      return res.status(400).json({
+        message: "Email already verified",
+        success: false,
+        error: true,
+      });
+    }
+
+    // Update the user's verification status
+    await userModel.findByIdAndUpdate(decodedToken.userID, { isVerified: true, verifiedAt: new Date() });
 
     return res.status(200).json({
       message: "email verified successfully !",
@@ -82,35 +136,32 @@ userRouter.get("/verify-email/:token", async (req, res, next) => {
   }
 });
 
-//USER LOGIN
+//USER LOGIN (gpt scanned and optimised)
 userRouter.post("/signin", async (req, res, next) => {
-  console.log("signin Api called");
-
   const { email, password } = req.body;
 
   try {
+    // Find user by email
     const existingUser = await userModel.findOne({ email: email });
-    console.log(existingUser);
 
     if (!existingUser) {
       const error = new Error("Email is not registered");
       error.status = 404;
       throw error;
     }
-    // finding email
-    const existingPass = existingUser.password;
-    const passCheck = await bcrypt.compare(password, existingPass);
+    // Check if password matches
+    const passCheck = await bcrypt.compare(password, existingUser.password);
     if (!passCheck) {
       const error = new Error("Incorrect password");
       error.status = 400;
       throw error;
     }
+    // check if email is verified
     if (!existingUser.isVerified) {
-      const error = new Error("please verify the email");
+      const error = new Error("please verify your email before logging in");
       error.status = 400;
       throw error;
     }
-
     // generate a new session id
     const sessionId = uuidv4();
 
@@ -129,6 +180,8 @@ userRouter.post("/signin", async (req, res, next) => {
       process.env.JWT_SECRET,
       { expiresIn: "24h" }
     );
+
+    // Return success response
     return res.status(200).json({
       message: "login success",
       token: token,
@@ -464,10 +517,13 @@ userRouter.get(
 );
 
 // report task
-userRouter.get("/report-task/:taskId", checkAuth, checkRole(["user", "admin"]), async (req, res, next) => {
+userRouter.post("/report-task/:taskId", checkAuth, checkRole(["user", "admin"]), async (req, res, next) => {
   const userId = req.userData.userId;
   const taskId = req.params.taskId;
+  console.log("taskid", taskId);
   const message = req.body.message;
+  console.log("message", message);
+
   try {
     const saveData = await taskReportModel({ userId, taskId, message });
     saveData.save();
@@ -476,16 +532,14 @@ userRouter.get("/report-task/:taskId", checkAuth, checkRole(["user", "admin"]), 
       message: "task reported successfully",
       success: false,
       error: true,
-    });
+    });  
   } catch (error) {
     next(error);
-  }
+  } 
 });
 
 // START URL SHORTENER TASK
 userRouter.get("/start-task/:taskId", checkAuth, checkRole(["user", "admin"]), async (req, res, next) => {
-  console.log("api called");
-
   const taskId = req.params.taskId;
   const user_id = req.userData.userId;
   try {
@@ -594,7 +648,6 @@ userRouter.get(
     }
   }
 );
-
 // VERIFY URL SHORTENER TASK COMPLETION
 userRouter.get(
   "/verify-urlshortener-task/:userId/:uniqueId",
@@ -603,6 +656,7 @@ userRouter.get(
   async (req, res, next) => {
     const advertiserUserId = req.params.userId;
     const uniqueId = req.params.uniqueId;
+    console.log(advertiserUserId, uniqueId);
 
     const user_id = req.userData.userId;
     try {
@@ -617,6 +671,7 @@ userRouter.get(
         error.status = 400;
         throw error;
       }
+
       // update task hits/amount from task post after one user completes
       const task = await shortUrlTaskModel.findById(taskId);
       const currentAmount = parseFloat(task.setAmount.toString());
@@ -625,9 +680,9 @@ userRouter.get(
       const fee = (payPerView / 100) * 25;
       const deductableAmount = payPerView + fee;
 
-      task.hits += 1;
-      task.targetViews -= 1;
-      task.setAmount = mongoose.Types.Decimal128.fromString((currentAmount - deductableAmount).toString());
+      task.hits += 1; // Increase task hits
+      task.targetViews -= 1; // Decrease target views
+      task.setAmount = mongoose.Types.Decimal128.fromString((currentAmount - deductableAmount).toString()); // Deduct the fee from task amount
       await task.save();
 
       // update task log completed
@@ -639,28 +694,61 @@ userRouter.get(
       // update payment to user wallet after task success
       const userData = await userModel.findById(user_id);
       const currentBalance = parseFloat(userData.wallet.toString());
-      userData.wallet = mongoose.Types.Decimal128.fromString((currentBalance + payPerView).toString());
+      userData.wallet = mongoose.Types.Decimal128.fromString((currentBalance + payPerView).toString()); // Add payment to user's wallet
       await userData.save();
-      /* update payment to admin wallet (before taking admin commision check for referer, if present check user earning.
-      if user earning less than 1$ referer can get commision until user earning reach 1$, remove refer from user profile,
-      delete userData from refer earning table
-      )*/
-      const adminData = await userModel.findById("677bb688cfd1dc73c1e1e25e");
-      const currentAdminBalance = parseFloat(adminData.wallet.toString());
-      adminData.wallet = mongoose.Types.Decimal128.fromString((currentAdminBalance + fee).toString());
-      await adminData.save();
-      // create wallet/transaction log
-      const userWalletLog = new userTransactionLogModel({
+
+      // create user transaction log
+      const type = "credit"; // This is a credit type since the user is getting paid
+      const transactionData = new userTransactionLogModel({
         userId: user_id,
         taskId: taskId,
         amount: mongoose.Types.Decimal128.fromString(payPerView.toString()),
-        type: "credit",
+        type,
       });
-      await userWalletLog.save();
+      await transactionData.save();
 
-      // delete task session
+      /* --- Updation for fee handling and commission to the referrer (if present) --- */
+
+      // Check for referer (5% referer commission)
+      const referredBy = userData.referredBy;
+      let referredByCommission = 0; // Initialize commission to zero in case there is no referrer.
+
+      if (referredBy) {
+        // Find the referrer's user data
+        const referredByUser = await userModel.findById(referredBy);
+
+        if (referredByUser) {
+          referredByCommission = (payPerView / 100) * 5; // Calculate 5% commission for the referrer
+          const referredByUserBalance = parseFloat(referredByUser.wallet.toString());
+          // Update the referrer's wallet with the commission
+          referredByUser.wallet = mongoose.Types.Decimal128.fromString(
+            (referredByUserBalance + referredByCommission).toString()
+          );
+          await referredByUser.save();
+        }
+
+        // Add balance to admin after commission deduction
+        const feeAfterCommision = fee - referredByCommission; // Deduct referrer commission from the fee
+        const adminData = await userModel.findById(process.env.ADMIN_OBJECT_ID); // Admin ID
+        const currentAdminBalance = parseFloat(adminData.wallet.toString());
+        adminData.wallet = mongoose.Types.Decimal128.fromString(
+          (currentAdminBalance + feeAfterCommision).toString() // Add the adjusted fee to the admin's wallet
+        );
+        await adminData.save();
+      } else {
+        // No referer: full fee goes to admin
+        const adminData = await userModel.findById(process.env.ADMIN_OBJECT_ID); // Admin ID
+        console.log(adminData);
+
+        const currentAdminBalance = parseFloat(adminData.wallet.toString());
+        adminData.wallet = mongoose.Types.Decimal128.fromString((currentAdminBalance + fee).toString()); // Add full fee to admin's wallet
+        await adminData.save();
+      }
+
+      // Deleting the task session after task completion
       await activeTaskSession.deleteOne();
 
+      // Returning the response after successful task completion and wallet updates
       return res.status(200).json({
         message: "task verified successfully",
         success: true,
@@ -851,68 +939,6 @@ userRouter.get("/delete-task/:taskId", checkAuth, checkRole(["user", "admin"]), 
 
     return res.status(200).json({
       message: "task deleted successfully",
-      success: true,
-      error: false,
-    });
-  } catch (error) {
-    next(error);
-  }
-});
-
-// VIEW SINGLE SHORTURL TASK (ADVERTISER)
-userRouter.get(
-  "/view-shorturltask/:taskId",
-  checkAuth,
-  checkRole(["user", "admin"]),
-  async (req, res, next) => {
-    const userId = req.userData.userId;
-    const taskId = req.params.taskId;
-    try {
-      const taskData = await shortUrlTaskModel.findById({ userId, taskId });
-
-      return res.status(200).json({
-        message: "task data fetched successfully",
-        data: taskData,
-        success: true,
-        error: false,
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-// pause/publish shortlink task (from list & edit)
-userRouter.get(
-  "/update-status-shorturltask",
-  checkAuth,
-  checkRole(["user", "admin"]),
-  async (req, res, next) => {
-    const userId = req.userData.userId;
-    const { taskId, status } = req.body;
-    try {
-      await shortUrlTaskModel.findOneAndUpdate({ userId, _id: taskId }, { status });
-
-      return res.status(200).json({
-        message: `task ${status}ed  successfuly`,
-        success: true,
-        error: false,
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-// delete shortlink task (from list & edit)
-userRouter.get("/delete-shorturltask", checkAuth, checkRole(["user", "admin"]), async (req, res, next) => {
-  const userId = req.userData.userId;
-  const { taskId } = req.body.status;
-  try {
-    await shortUrlTaskModel.findOneAndDelete({ userId, _id: taskId });
-
-    return res.status(200).json({
-      message: "task deleted  successfuly",
       success: true,
       error: false,
     });

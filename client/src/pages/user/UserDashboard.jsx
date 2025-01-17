@@ -3,6 +3,7 @@ import Navigation from "../../layout/Navigation";
 import "./userDashboard.css";
 import axiosInstance from "./../../utils/axiosInstance.js";
 import { getAuthData } from "./../../utils/auth.js";
+import toast from "react-hot-toast";
 
 export default function UserDashboard() {
   // const { token } = getAuthData();
@@ -13,11 +14,10 @@ export default function UserDashboard() {
     axiosInstance
       .get("/user/dashboard-data", { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
-        console.log("response", response);
         setData(response.data.data);
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("an error occured");
       });
   }, [token]);
 

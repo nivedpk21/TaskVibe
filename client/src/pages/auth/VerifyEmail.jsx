@@ -11,14 +11,12 @@ export default function VerifyEmail() {
     axiosInstance
       .get(`/user/verify-email/${token}`)
       .then((response) => {
-        console.log(response);
         setMessage(response.data.message);
         setTimeout(() => {
           navigate("/signin");
         }, 5000);
       })
       .catch((error) => {
-        console.log(error);
         setMessage(error.response.data.message); 
       });
   });

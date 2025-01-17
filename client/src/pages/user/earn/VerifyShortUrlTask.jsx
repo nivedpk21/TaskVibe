@@ -14,20 +14,16 @@ export default function VerifyShortUrlTask() {
         headers: { Authorization: `bearer ${token}` },
       })
       .then((response) => {
-        console.log(response);
         toast.success(response.data.message);
-
+      })
+      .catch((error) => {
+        setMessage(error.response.data.message);
+        toast.error(error.response.data.message);
+      })
+      .finally(() => {
         setTimeout(() => {
           window.close();
         }, 3000);
-      })
-      .catch((error) => {
-        console.log(error);
-        setMessage(error.response.data.message);
-        // setTimeout(() => {
-        //   window.close();
-        // }, 3000);
-        // toast.error(error.response.data.message);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
