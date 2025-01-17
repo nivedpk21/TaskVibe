@@ -9,7 +9,6 @@ import Footer from "../layout/Footer";
 injectSpeedInsights();
 
 /*chat gpt scanned and optimised*/
-//CODE
 export default function Home() {
   return (
     <>
