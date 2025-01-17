@@ -12,7 +12,6 @@ const checkRole = (allowedRoles) => {
       }
       next();
     } catch (error) {
-      console.log(error);
       res.status(500).json({
         message: "An error occurred while checking user role.",
         success: false,

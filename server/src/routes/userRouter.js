@@ -253,8 +253,6 @@ userRouter.get("/resetpassword", async (req, res, next) => {
 userRouter.post("/update-password", checkAuth, checkRole(["user", "admin"]), async (req, res, next) => {
   const userId = req.userData.userId;
   const { currentPassword, newPassword } = req.body;
-  console.log("currentPassword", currentPassword);
-  console.log("newPassword", newPassword);
 
   try {
     const userData = await userModel.findById(userId);
@@ -276,8 +274,6 @@ userRouter.post("/update-password", checkAuth, checkRole(["user", "admin"]), asy
       error: false,
     });
   } catch (error) {
-    console.log("error gaga", error);
-
     next(error);
   }
 });
@@ -350,7 +346,6 @@ userRouter.get("/profile", checkAuth, checkRole(["user", "admin"]), async (req, 
   const user_id = req.userData.userId;
   try {
     const userData = await userModel.findById(user_id);
-    console.log(userData);
 
     return res.status(200).json({
       message: "user data fetched successfully",
@@ -520,9 +515,7 @@ userRouter.get(
 userRouter.post("/report-task/:taskId", checkAuth, checkRole(["user", "admin"]), async (req, res, next) => {
   const userId = req.userData.userId;
   const taskId = req.params.taskId;
-  console.log("taskid", taskId);
   const message = req.body.message;
-  console.log("message", message);
 
   try {
     const saveData = await taskReportModel({ userId, taskId, message });
@@ -532,10 +525,10 @@ userRouter.post("/report-task/:taskId", checkAuth, checkRole(["user", "admin"]),
       message: "task reported successfully",
       success: false,
       error: true,
-    });  
+    });
   } catch (error) {
     next(error);
-  } 
+  }
 });
 
 // START URL SHORTENER TASK
@@ -656,12 +649,10 @@ userRouter.get(
   async (req, res, next) => {
     const advertiserUserId = req.params.userId;
     const uniqueId = req.params.uniqueId;
-    console.log(advertiserUserId, uniqueId);
 
     const user_id = req.userData.userId;
     try {
       const taskData = await shortUrlTaskModel.findOne({ userId: advertiserUserId, uniqueId: uniqueId });
-      console.log("taskdata", taskData);
 
       const taskId = taskData._id;
       // task validation
@@ -738,7 +729,6 @@ userRouter.get(
       } else {
         // No referer: full fee goes to admin
         const adminData = await userModel.findById(process.env.ADMIN_OBJECT_ID); // Admin ID
-        console.log(adminData);
 
         const currentAdminBalance = parseFloat(adminData.wallet.toString());
         adminData.wallet = mongoose.Types.Decimal128.fromString((currentAdminBalance + fee).toString()); // Add full fee to admin's wallet
@@ -818,7 +808,6 @@ userRouter.get("/fetch-document", checkAuth, checkRole(["user", "admin"]), async
 // ADD SHORTLINK TASK
 userRouter.post("/add-shorturl-task", checkAuth, checkRole(["user", "admin"]), async (req, res, next) => {
   ///
-  console.log("add task api called");
   const user_Id = req.userData.userId;
   const { name, uniqueId, shortUrl, targetViews, payPerView, setAmount, status } = req.body;
   try {
@@ -871,13 +860,10 @@ userRouter.post("/add-shorturl-task", checkAuth, checkRole(["user", "admin"]), a
 
 // PAUSETASK (ADVERTISER MANAGE TASK)
 userRouter.get("/pause-task/:taskId", checkAuth, checkRole(["user", "admin"]), async (req, res, next) => {
-  console.log("api called");
-
   const user_Id = req.userData.userId;
   const taskId = req.params.taskId;
   try {
     const taskData = await shortUrlTaskModel.findOne({ _id: taskId, userId: user_Id });
-    console.log(taskData);
 
     taskData.status = "paused";
     taskData.save();
@@ -894,13 +880,10 @@ userRouter.get("/pause-task/:taskId", checkAuth, checkRole(["user", "admin"]), a
 
 // PUBLISH TASK (ADVERTISER MANAGE TASK)
 userRouter.get("/publish-task/:taskId", checkAuth, checkRole(["user", "admin"]), async (req, res, next) => {
-  console.log("api called");
-
   const user_Id = req.userData.userId;
   const taskId = req.params.taskId;
   try {
     const taskData = await shortUrlTaskModel.findOne({ _id: taskId, userId: user_Id });
-    console.log(taskData);
 
     taskData.status = "active";
     taskData.save();
@@ -917,15 +900,11 @@ userRouter.get("/publish-task/:taskId", checkAuth, checkRole(["user", "admin"]),
 
 // DELETE TASK (ADVERTISER MANAGE TASK)
 userRouter.get("/delete-task/:taskId", checkAuth, checkRole(["user", "admin"]), async (req, res, next) => {
-  console.log("api called");
-
   const user_Id = req.userData.userId;
   const taskId = req.params.taskId;
   try {
     const taskData = await shortUrlTaskModel.findOne({ _id: taskId, userId: user_Id });
     const userData = await userModel.findById(user_Id);
-    console.log("userData", userData);
-    console.log("taskData", taskData);
     // refund setamount/Balance amount
     const refundAmount = parseFloat(taskData.setAmount.toString());
     const currentWalletBalance = parseFloat(userData.wallet.toString());

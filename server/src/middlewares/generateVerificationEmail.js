@@ -27,7 +27,6 @@ const generateVerificationEmail = async (userEmail, token, type) => {
 
     try {
       await transporter.sendMail(mailOptions);
-      console.log("email send to", userEmail);
     } catch (error) {
       console.error("email sending failed", error);
     }
@@ -56,7 +55,6 @@ const generateVerificationEmail = async (userEmail, token, type) => {
 
     try {
       await transporter.sendMail(mailOptions);
-      console.log("email send to", email);
     } catch (error) {
       console.error("email sending failed", error);
     }
