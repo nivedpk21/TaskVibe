@@ -37,6 +37,8 @@ function App() {
         <Route element={<PublicRoutes />}>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/signup/:referredBy" element={<SignUp />} />
+
           <Route path="/signin" element={<SignIn />} />
           <Route path="/verify-email/:token" element={<VerifyEmail />} />
 

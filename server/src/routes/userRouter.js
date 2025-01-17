@@ -282,7 +282,7 @@ userRouter.post("/update-password", checkAuth, checkRole(["user", "admin"]), asy
 userRouter.get("/dashboard-data", checkAuth, checkRole(["user", "admin"]), async (req, res, next) => {
   const user_id = req.userData.userId;
   try {
-    const walletBalance = await userModel.findById(user_id, { wallet: 1 });
+    const userData = await userModel.findById(user_id, { wallet: 1, refererCode: 1 });
 
     // Get today's date range
     const startOfDay = new Date();
@@ -326,7 +326,8 @@ userRouter.get("/dashboard-data", checkAuth, checkRole(["user", "admin"]), async
 
     return res.status(200).json({
       data: {
-        walletBalance: walletBalance.wallet,
+        walletBalance: userData.wallet,
+        refererCode: userData.refererCode,
         todaysEarning: todaysEarning,
         completedTasks: todaysCompletedTasks,
         liveCampaigns: numberOfLiveTasks,
@@ -702,30 +703,36 @@ userRouter.get(
 
       // Check for referer (5% referer commission)
       const referredBy = userData.referredBy;
-      let referredByCommission = 0; // Initialize commission to zero in case there is no referrer.
 
       if (referredBy) {
         // Find the referrer's user data
-        const referredByUser = await userModel.findById(referredBy);
+        const referredByUser = await userModel.findOne({ refererCode: referredBy });
 
         if (referredByUser) {
-          referredByCommission = (payPerView / 100) * 5; // Calculate 5% commission for the referrer
+          const referredByCommission = (payPerView / 100) * 5; // Calculate 5% commission for the referrer
           const referredByUserBalance = parseFloat(referredByUser.wallet.toString());
           // Update the referrer's wallet with the commission
           referredByUser.wallet = mongoose.Types.Decimal128.fromString(
             (referredByUserBalance + referredByCommission).toString()
           );
           await referredByUser.save();
-        }
 
-        // Add balance to admin after commission deduction
-        const feeAfterCommision = fee - referredByCommission; // Deduct referrer commission from the fee
-        const adminData = await userModel.findById(process.env.ADMIN_OBJECT_ID); // Admin ID
-        const currentAdminBalance = parseFloat(adminData.wallet.toString());
-        adminData.wallet = mongoose.Types.Decimal128.fromString(
-          (currentAdminBalance + feeAfterCommision).toString() // Add the adjusted fee to the admin's wallet
-        );
-        await adminData.save();
+          // Add balance to admin after commission deduction
+          const feeAfterCommision = fee - referredByCommission; // Deduct referrer commission from the fee
+          const adminData = await userModel.findById(process.env.ADMIN_OBJECT_ID); // Admin ID
+          const currentAdminBalance = parseFloat(adminData.wallet.toString());
+          adminData.wallet = mongoose.Types.Decimal128.fromString(
+            (currentAdminBalance + feeAfterCommision).toString() // Add the adjusted fee to the admin's wallet
+          );
+          await adminData.save();
+        } else {
+          // invalid / inactive referer: full fee goes to admin
+          const adminData = await userModel.findById(process.env.ADMIN_OBJECT_ID); // Admin ID
+
+          const currentAdminBalance = parseFloat(adminData.wallet.toString());
+          adminData.wallet = mongoose.Types.Decimal128.fromString((currentAdminBalance + fee).toString()); // Add full fee to admin's wallet
+          await adminData.save();
+        }
       } else {
         // No referer: full fee goes to admin
         const adminData = await userModel.findById(process.env.ADMIN_OBJECT_ID); // Admin ID

@@ -3,7 +3,7 @@ import axiosInstance from "./../../utils/axiosInstance.js";
 import toast from "react-hot-toast";
 import Navigation from "../../layout/Navigation";
 import "./signup.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 /*chat gpt scanned and optimised*/
 
@@ -208,11 +208,15 @@ export default function SignUp() {
     []
   );
 
+  const { referredBy } = useParams();
+  console.log("referredBy", referredBy);
+
   const [inputData, setInputData] = useState({
     email: "",
     country: "",
     password: "",
     confirmPassword: "",
+    referredBy: referredBy || "",
   });
   const [formErrors, setFormErrors] = useState({});
   const [isChecked, setIsChecked] = useState(false);

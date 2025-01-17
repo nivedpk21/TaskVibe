@@ -1,6 +1,6 @@
 #dashboard-div {
   width: 90%;
-  height: 50vh;
+  height: 20vh;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
@@ -13,19 +13,47 @@
   background-color: bisque;
 }
 
+.referer-div {
+  width: 45%;
+  margin: 0 auto;
+  border-radius: 15;
+  background: linear-gradient(135deg, rgba(107, 17, 203, 0.83), rgba(37, 116, 252, 0.83));
+  color: white;
+}
+
 @media only screen and (max-width: 576.5px) {
+  #dashboard-div {
+    height: auto;
+  }
   .dash-info {
-    width: 96%;
-    margin-bottom: 6px;
+    width: 95%;
+    margin-bottom: 10px;
+  }
+  .referer-div {
+    width: 80%;
   }
 }
 @media only screen and (min-width: 577px) and (max-width: 767.5px) {
+  #dashboard-div {
+    height: 30vh;
+  }
   .dash-info {
     width: 48%;
+    margin-bottom: 15px;
+  }
+  .referer-div {
+    width: 45%;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 991.5px) {
+  #dashboard-div {
+    height: 30vh;
+  }
   .dash-info {
     width: 48%;
+    margin-bottom: 15px;
+  }
+  .referer-div {
+    width: 45%;
   }
 }

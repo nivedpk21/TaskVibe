@@ -27,7 +27,6 @@ export default function AddUrlshortner() {
     }
     return "";
   }, [userId, uniqueId]);
-  // const apiUrl = `taskvibe.icu/destination-shortUrl/${userId}/${uniqueId}`;
 
   const [copied, setCopied] = useState(false);
   const [inputData, setInputData] = useState({
