@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navigation from "../../layout/Navigation";
 import "./messages.css";
-import viewMessageData from "./../../data/viewMessageData.json";
 
 export default function ViewMessage() {
   // Sample data to display
@@ -10,7 +9,7 @@ export default function ViewMessage() {
   useEffect(() => {
     // This is where you can fetch or set real data if needed
     // For now, it will display the sample data
-    setData(viewMessageData);
+    setData("viewMessageData");
   }, []);
 
   return (

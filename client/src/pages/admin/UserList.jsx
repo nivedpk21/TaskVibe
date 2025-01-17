@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navigation from "../../layout/Navigation";
-import userListData from "./../../data/userListData.json";
 import "./userList.css";
 
 export default function UserList() {
