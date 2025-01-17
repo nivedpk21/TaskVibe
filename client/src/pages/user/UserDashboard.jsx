@@ -10,6 +10,7 @@ export default function UserDashboard() {
   const clientUrl = import.meta.env.VITE_CLIENT_URL;
   const [data, setData] = useState({});
   const [copy, setCopy] = useState(false);
+  console.log("clientUrl", clientUrl);
 
   useEffect(() => {
     axiosInstance
