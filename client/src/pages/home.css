@@ -107,6 +107,9 @@
 }
 
 @media only screen and (max-width: 576.5px) {
+  .background-page {
+    padding-top: 3rem;
+  }
   /* landing section --------------------------------------------- */
   .landing-section {
     height: 95vh;
